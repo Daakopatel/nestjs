@@ -1,13 +1,11 @@
 
-import { Controller, Get, Query, Post, Body, Put, Param, Delete, HttpException, HttpStatus, UseFilters } from '@nestjs/common';
+import { Controller, Get, Query, Post, Body, Put, Param, Delete, HttpException, HttpStatus, UseFilters, ParseIntPipe } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto, ListAllEntities } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { Users } from 'src/users/interfaces/user.interface';
-import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
 import { ForbiddenException } from 'src/common/exception/forbidden.exception';
 
 @Controller('users')
-@UseFilters(new HttpExceptionFilter())
 
 export class UsersController {
 
@@ -36,10 +34,13 @@ export class UsersController {
             });
         }
     }
+    
 
 
     @Get(':id')
-    findOne(@Param('id') id: string) {
+    findOne(@Param('id', ParseIntPipe) id: number) {
+        console.log(id);
+        
         return `This action returns a #${id} user`;
     }
 
