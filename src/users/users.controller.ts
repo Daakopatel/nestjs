@@ -4,6 +4,7 @@ import { CreateUserDto, UpdateUserDto, ListAllEntities } from './dto/create-user
 import { UsersService } from './users.service';
 import { Users } from 'src/users/interfaces/user.interface';
 import { ForbiddenException } from 'src/common/exception/forbidden.exception';
+import { Roles } from './decorators/roles.decorator';
 
 @Controller('users')
 
@@ -12,6 +13,7 @@ export class UsersController {
     constructor(private usersService: UsersService) { }
 
     @Post()
+    @Roles(['Admin'])
     async create(@Body() createUserDto: CreateUserDto) {
         try {
             return this.usersService.create(createUserDto)
@@ -22,6 +24,7 @@ export class UsersController {
 
 
     @Get()
+    @Roles(['Admin'])
     async findAll() {
         try {
             return this.usersService.findAll()
@@ -38,6 +41,7 @@ export class UsersController {
 
 
     @Get(':id')
+    @Roles(['Admin'])
     findOne(@Param('id', ParseIntPipe) id: number) {
         console.log(id);
         
