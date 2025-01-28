@@ -13,7 +13,6 @@ export class UsersController {
     constructor(private usersService: UsersService) { }
 
     @Post()
-    @Roles(['Admin'])
     async create(@Body() createUserDto: CreateUserDto) {
         try {
             return this.usersService.create(createUserDto)
@@ -24,7 +23,6 @@ export class UsersController {
 
 
     @Get()
-    @Roles(['Admin'])
     async findAll() {
         try {
             return this.usersService.findAll()
