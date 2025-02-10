@@ -1,13 +1,14 @@
 
-import { Controller, Get, Query, Post, Body, Put, Param, Delete, HttpException, HttpStatus, UseFilters, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Query, Post, Body, Put, Param, Delete, HttpException, HttpStatus, UseFilters, ParseIntPipe, UseInterceptors } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto, ListAllEntities } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { Users } from 'src/users/interfaces/user.interface';
 import { ForbiddenException } from 'src/common/exception/forbidden.exception';
-import { Roles } from './decorators/roles.decorator';
+import { Roles } from '../common/decorators/roles.decorator';
+import { LoggingInterceptor } from 'src/common/interceptor/logging.interceptor';
 
 @Controller('users')
-
+// @UseInterceptors(LoggingInterceptor)
 export class UsersController {
 
     constructor(private usersService: UsersService) { }
